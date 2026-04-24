@@ -3,8 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ClickBitBuy — Curated Chinese Tech Gadgets</title>
+<title>ClickBitBuy.in — Curated Tech Gadgets</title>
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bungee&family=VT323&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
 <style>
 :root {
   --paper: #faf7f2;
@@ -97,7 +103,15 @@ nav {
 .hero-eyebrow { display: flex; align-items: center; gap: 0.8rem; margin-bottom: 1.5rem; }
 .hero-line { height: 2px; width: 40px; background: var(--accent); border-radius: 2px; }
 .hero-ey-text { font-family: var(--pixel); font-size: 0.4rem; color: var(--accent); letter-spacing: 2px; }
-.hero h1 { font-family: var(--serif); font-size: 3.8rem; line-height: 1.08; color: var(--ink); margin-bottom: 1.2rem; font-weight: 400; }
+.hero h1 {
+  font-family: "Bungee", sans-serif;
+  font-style: normal;
+  font-size: 3.8rem;
+  line-height: 1.08;
+  color: var(--ink);
+  margin-bottom: 1.2rem;
+  font-weight: 400;
+}
 .hero h1 em { font-style: italic; color: var(--accent); }
 .hero p { font-family: var(--sans); font-size: 1.05rem; color: var(--ink3); line-height: 1.75; margin-bottom: 2rem; max-width: 460px; }
 .hero-btns { display: flex; align-items: center; gap: 1.2rem; flex-wrap: wrap; }
@@ -420,7 +434,12 @@ footer { background: var(--ink); padding: 3rem 2.5rem 2rem; margin-top: 4rem; }
 /* ===== DEALS PAGE ===== */
 .deals-hero { background: var(--ink); margin-bottom: 2rem; border-radius: var(--radius); padding: 2rem; display: flex; align-items: center; justify-content: space-between; }
 .deals-hero-text { color: #fff; }
-.deals-hero-title { font-family: var(--serif); font-size: 1.8rem; color: #fff; margin-bottom: 0.3rem; }
+.deals-hero-title {
+  font-family: 'VT323', monospace;
+  font-size: 1.8rem;
+  color: #fff;
+  margin-bottom: 0.3rem;
+}
 .deals-hero-sub { font-family: var(--sans); font-size: 0.88rem; color: rgba(255,255,255,0.5); }
 .deals-countdown { font-family: var(--pixel); font-size: 0.9rem; color: var(--accent); letter-spacing: 2px; }
 .deals-countdown-label { font-family: var(--pixel); font-size: 0.3rem; color: rgba(255,255,255,0.4); margin-top: 0.4rem; }
@@ -531,9 +550,234 @@ footer { background: var(--ink); padding: 3rem 2.5rem 2rem; margin-top: 4rem; }
 /* View-all grid for sections */
 .view-all-page { max-width: 1280px; margin: 0 auto; padding: 2rem 2.5rem 4rem; }
 
+/* Mobile hamburger */
+.nav-hamburger {
+  display: none;
+  flex-direction: column; gap: 5px;
+  background: none; border: none; cursor: pointer; padding: 6px;
+}
+.nav-hamburger span {
+  display: block; width: 22px; height: 2px;
+  background: var(--ink); border-radius: 2px;
+  transition: all 0.2s;
+}
+
+/* Mobile nav drawer */
+.mobile-nav-drawer {
+  display: none;
+  position: fixed; inset: 0; z-index: 200;
+}
+.mobile-nav-drawer.open { display: block; }
+.mnd-overlay {
+  position: absolute; inset: 0;
+  background: rgba(26,22,18,0.5);
+  backdrop-filter: blur(4px);
+}
+.mnd-panel {
+  position: absolute; top: 0; right: 0; bottom: 0;
+  width: 280px;
+  background: var(--paper);
+  padding: 2rem 1.5rem;
+  display: flex; flex-direction: column; gap: 0;
+  transform: translateX(100%);
+  transition: transform 0.3s cubic-bezier(.16,1,.3,1);
+  overflow-y: auto;
+}
+.mobile-nav-drawer.open .mnd-panel { transform: translateX(0); }
+.mnd-close {
+  font-family: var(--pixel); font-size: 0.5rem;
+  background: none; border: none; color: var(--ink3);
+  cursor: pointer; align-self: flex-end; margin-bottom: 1.5rem;
+}
+.mnd-link {
+  font-family: var(--sans); font-size: 1rem; font-weight: 500;
+  color: var(--ink); padding: 0.9rem 0;
+  border-bottom: 1px solid var(--card-border);
+  cursor: pointer; transition: color 0.15s;
+  display: flex; align-items: center; gap: 0.5rem;
+}
+.mnd-link:hover { color: var(--accent); }
+.mnd-cart-btn {
+  margin-top: 1.5rem;
+  width: 100%; padding: 0.9rem;
+  background: var(--ink); color: #fff;
+  border: none; border-radius: 100px;
+  font-family: var(--sans); font-weight: 600; font-size: 0.95rem;
+  cursor: pointer; transition: all 0.2s;
+}
+.mnd-cart-btn:hover { background: var(--accent); }
+
+/* Mobile bottom bar */
+.mobile-bottom-bar {
+  display: none;
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 150;
+  background: rgba(250,247,242,0.97);
+  backdrop-filter: blur(20px);
+  border-top: 1px solid var(--card-border);
+  padding: 0.6rem 0 calc(0.6rem + env(safe-area-inset-bottom));
+  justify-content: space-around; align-items: center;
+}
+.mbb-btn {
+  display: flex; flex-direction: column; align-items: center; gap: 3px;
+  background: none; border: none; cursor: pointer;
+  font-family: var(--pixel); font-size: 0.3rem; color: var(--ink3);
+  transition: color 0.15s; padding: 4px 12px;
+}
+.mbb-btn .mbb-icon { font-size: 1.3rem; line-height: 1; }
+.mbb-btn.active, .mbb-btn:hover { color: var(--accent); }
+.mbb-cart-badge {
+  position: absolute; top: -4px; right: -4px;
+  background: var(--accent); color: #fff;
+  font-family: var(--pixel); font-size: 0.28rem;
+  border-radius: 100px; padding: 2px 5px; line-height: 1.4;
+}
+.mbb-btn-wrap { position: relative; }
+
+/* ===== RESPONSIVE BREAKPOINTS ===== */
+@media (max-width: 900px) {
+  /* Nav */
+  nav { padding: 0 1.2rem; height: 58px; }
+  .nav-search { display: none; }
+  .nav-right { display: none; }
+  .nav-hamburger { display: flex; }
+  .mobile-bottom-bar { display: flex; }
+
+  /* Hero */
+  .hero {
+    grid-template-columns: 1fr;
+    padding: 2rem 1.2rem 1.5rem;
+    gap: 2rem;
+  }
+  .hero h1 { font-size: 2.4rem; }
+  .hero p { font-size: 0.95rem; max-width: 100%; }
+  .hero-btns { flex-wrap: wrap; }
+  .hero-trust { flex-wrap: wrap; gap: 0.8rem; }
+  .hero-visual { order: -1; }
+  .hero-card-big img { height: 200px; }
+  .pixel-float { display: none; }
+
+  /* Sections */
+  .section { padding: 2rem 1.2rem; }
+  .sec-head { flex-direction: column; align-items: flex-start; gap: 1rem; }
+  .sec-title { font-size: 1.6rem; }
+  .product-grid { grid-template-columns: repeat(2, 1fr); gap: 0.9rem; }
+
+  /* Banner */
+  .banner-strip { padding: 1.5rem 1.2rem; }
+  .banner-inner { grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+  /* Footer */
+  footer { padding: 2.5rem 1.2rem 6rem; }
+  .footer-top { grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  .footer-bottom { flex-direction: column; gap: 0.5rem; text-align: center; }
+
+  /* Cart */
+  .cart-wrap { padding: 1.5rem 1.2rem 6rem; }
+  .cart-layout { grid-template-columns: 1fr; }
+  .cart-summary-box { position: static; }
+
+  /* Product detail */
+  .detail-page { padding: 1.5rem 1.2rem 6rem; }
+  .detail-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+  .detail-info h1 { font-size: 1.6rem; }
+  .detail-price { font-size: 1.6rem; }
+
+  /* Order/Payment */
+  .order-wrap { padding: 1.5rem 1.2rem 6rem; }
+  .payment-wrap { padding: 1.5rem 1.2rem 6rem; }
+  .order-steps { gap: 0; }
+  .os-step { font-size: 0.75rem; gap: 0.3rem; }
+  .step-line { margin: 0 0.25rem; }
+
+  /* Success */
+  .success-wrap { padding: 2rem 1.2rem 6rem; margin-top: 1rem; }
+
+  /* Wishlist / cat pages */
+  .wishlist-wrap { padding: 1.5rem 1.2rem 6rem; }
+  .cat-page-wrap { padding: 1.5rem 1.2rem 6rem; }
+  .view-all-page { padding: 1.5rem 1.2rem 6rem; }
+
+  /* Page title */
+  .page-title { font-size: 1.7rem; }
+
+  /* Detail actions stacked */
+  .detail-actions { flex-direction: column; }
+  .btn-dc, .btn-db { flex: none; width: 100%; }
+
+  /* Deals hero */
+  .deals-hero { flex-direction: column; gap: 1rem; align-items: flex-start; }
+}
+
+@media (max-width: 480px) {
+  .hero h1 { font-size: 1.9rem; }
+  .product-grid { grid-template-columns: repeat(2, 1fr); gap: 0.75rem; }
+  .product-img-wrap { height: 140px; }
+  .hero-cards-row { grid-template-columns: 1fr 1fr; }
+  .banner-inner { grid-template-columns: 1fr; }
+  .footer-top { grid-template-columns: 1fr; }
+  .pm-grid { grid-template-columns: 1fr; }
+  .detail-thumbs { flex-wrap: wrap; }
+  .cart-item-card { flex-wrap: wrap; }
+  .cat-page-title { font-size: 1.6rem; }
+  nav { height: 54px; }
+
+  /* Mobile search bar below nav */
+  .mobile-search-bar {
+    display: flex !important;
+    align-items: center; gap: 0.5rem;
+    background: var(--paper2); border-bottom: 1px solid var(--card-border);
+    padding: 0.6rem 1rem;
+    position: sticky; top: 54px; z-index: 99;
+  }
+  .mobile-search-bar svg { flex-shrink: 0; color: var(--ink3); }
+  .mobile-search-bar input {
+    flex: 1; background: none; border: none; outline: none;
+    font-family: var(--sans); font-size: 0.9rem; color: var(--ink);
+  }
+  .mobile-search-bar input::placeholder { color: var(--ink4); }
+}
+
+/* Always hide mobile search on large screens */
+.mobile-search-bar { display: none; }
+
 </style>
 </head>
 <body>
+
+<!-- MOBILE NAV DRAWER -->
+<div class="mobile-nav-drawer" id="mobileNavDrawer">
+  <div class="mnd-overlay" onclick="closeMobileNav()"></div>
+  <div class="mnd-panel">
+    <button class="mnd-close" onclick="closeMobileNav()">[ CLOSE X ]</button>
+    <div class="mnd-link" onclick="closeMobileNav();goHome()">🏠 Home</div>
+    <div class="mnd-link" onclick="closeMobileNav();showDealsPage()">⚡ Deals</div>
+    <div class="mnd-link" onclick="closeMobileNav();showNewInPage()">✨ New In</div>
+    <div class="mnd-link" onclick="closeMobileNav();showWishlistPage()">❤ Wishlist <span id="mndWishCount" style="font-family:var(--pixel);font-size:0.32rem;background:var(--accent);color:#fff;padding:2px 6px;border-radius:10px;margin-left:4px;display:none">0</span></div>
+    <button class="mnd-cart-btn" onclick="closeMobileNav();renderCartPage();showPage('page-cart')">🛍 Cart <span id="mndCartCount">0</span></button>
+  </div>
+</div>
+
+<!-- MOBILE BOTTOM BAR -->
+<div class="mobile-bottom-bar" id="mobileBottomBar">
+  <button class="mbb-btn" id="mbbHome" onclick="goHome()">
+    <span class="mbb-icon">🏠</span>Home
+  </button>
+  <button class="mbb-btn" id="mbbDeals" onclick="showDealsPage()">
+    <span class="mbb-icon">⚡</span>Deals
+  </button>
+  <button class="mbb-btn" id="mbbNew" onclick="showNewInPage()">
+    <span class="mbb-icon">✨</span>New
+  </button>
+  <button class="mbb-btn" id="mbbWish" onclick="showWishlistPage()">
+    <span class="mbb-icon">❤</span>Wishlist
+  </button>
+  <div class="mbb-btn-wrap">
+    <button class="mbb-btn" id="mbbCart" onclick="renderCartPage();showPage('page-cart')">
+      <span class="mbb-icon">🛍</span>Cart
+    </button>
+    <span class="mbb-cart-badge" id="mbbCartCount" style="display:none">0</span>
+  </div>
+</div>
 
 <div class="toast" id="toast"><span class="toast-chk">✓</span><span id="toastMsg">Added to cart</span></div>
 
@@ -556,18 +800,27 @@ footer { background: var(--ink); padding: 3rem 2.5rem 2rem; margin-top: 4rem; }
     <span class="nav-link" onclick="showWishlistPage()">❤ Wishlist <span id="wishCount" style="font-family:var(--pixel);font-size:0.32rem;background:var(--accent);color:#fff;padding:2px 5px;border-radius:10px;margin-left:2px;display:none">0</span></span>
     <button class="cart-pill" id="cartBtn0" onclick="renderCartPage();showPage('page-cart')">🛍 Cart <span class="cnt" id="cartCount0">0</span></button>
   </div>
+  <button class="nav-hamburger" onclick="openMobileNav()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+
+<!-- MOBILE SEARCH BAR (shown below nav on small screens) -->
+<div class="mobile-search-bar" id="mobileSearchBar" style="display:none">
+  <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+  <input type="text" placeholder="Search gadgets…" id="mobileSearchInput" oninput="document.getElementById('searchInput').value=this.value;showSuggestions();" onkeydown="if(event.key==='Enter'){hideSuggestions();handleSearch();}" />
+</div>
 
 <div class="marquee-strip">
   <div class="marquee-inner">
     <span class="mq-item"><span class="dot">★</span>FREE SHIPPING ABOVE ₹999</span>
     <span class="mq-item"><span class="dot">★</span>NEW DROPS EVERY TUESDAY</span>
-    <span class="mq-item"><span class="dot">★</span>CURATED CHINESE TECH — ONLY THE BEST</span>
+    <span class="mq-item"><span class="dot">★</span>CURATED TECH — ONLY THE BEST</span>
     <span class="mq-item"><span class="dot">★</span>7-DAY EASY RETURNS</span>
     <span class="mq-item"><span class="dot">★</span>SECURE UPI & CARD PAYMENTS</span>
     <span class="mq-item"><span class="dot">★</span>FREE SHIPPING ABOVE ₹999</span>
     <span class="mq-item"><span class="dot">★</span>NEW DROPS EVERY TUESDAY</span>
-    <span class="mq-item"><span class="dot">★</span>CURATED CHINESE TECH — ONLY THE BEST</span>
+    <span class="mq-item"><span class="dot">★</span>CURATED TECH — ONLY THE BEST</span>
     <span class="mq-item"><span class="dot">★</span>7-DAY EASY RETURNS</span>
     <span class="mq-item"><span class="dot">★</span>SECURE UPI & CARD PAYMENTS</span>
   </div>
@@ -576,8 +829,8 @@ footer { background: var(--ink); padding: 3rem 2.5rem 2rem; margin-top: 4rem; }
 <div class="hero">
   <div>
     <div class="hero-eyebrow"><div class="hero-line"></div><span class="hero-ey-text">SEASON 2026 COLLECTION</span></div>
-    <h1>Smart Gadgets<br>from the <em>East.</em></h1>
-    <p>Carefully curated Trendy tech — from across the world to India. Every product tested, reviewed, and picked for quality you can trust.</p>
+    <h1 class="hero-title">Smart Gadgets<br>for the <em>Smart.</em></h1>
+    <p>trendy electronics,gadgets and more from across the world to India.</p>
     <div class="hero-btns">
       <button class="btn-warm" onclick="document.getElementById('trending-section').scrollIntoView({behavior:'smooth'})">Shop Now →</button>
       <button class="btn-ghost" onclick="showNewInPage()">New Arrivals</button>
@@ -666,7 +919,7 @@ footer { background: var(--ink); padding: 3rem 2.5rem 2rem; margin-top: 4rem; }
     <div class="footer-top">
       <div>
         <div class="footer-logo">Click<span>Bit</span>Buy</div>
-        <div class="footer-tagline">Curated Chinese tech gadgets — smart, affordable, and always ahead of the curve. Every product handpicked for quality you can trust.</div>
+        <div class="footer-tagline">Curated tech gadgets — smart, affordable, and always ahead of the curve. Every product handpicked for quality you can trust.</div>
       </div>
       <div>
         <div class="footer-col-title">Shop</div>
@@ -1027,14 +1280,47 @@ function updateBadges() {
   const wc = wishlist.length;
   const wcEl = document.getElementById('wishCount');
   if (wcEl) { wcEl.textContent = wc; wcEl.style.display = wc>0?'inline':'none'; }
+  // Mobile nav counts
+  const mndWish = document.getElementById('mndWishCount');
+  if (mndWish) { mndWish.textContent = wc; mndWish.style.display = wc>0?'inline':'none'; }
+  const mndCart = document.getElementById('mndCartCount');
+  if (mndCart) mndCart.textContent = t;
+  // Mobile bottom bar cart badge
+  const mbbBadge = document.getElementById('mbbCartCount');
+  if (mbbBadge) { mbbBadge.textContent = t; mbbBadge.style.display = t>0?'inline':'none'; }
 }
 
 function showPage(id) {
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.getElementById(id).classList.add('active');
-  window.scrollTo(0,0);
+  window.scrollTo(0, 0);
   updateBadges();
+  updateMobileBottomBar(id);
 }
+
+function updateMobileBottomBar(pageId) {
+  document.querySelectorAll('.mbb-btn').forEach(b => b.classList.remove('active'));
+  if (pageId === 'page-home') document.getElementById('mbbHome').classList.add('active');
+  else if (pageId === 'page-cart') document.getElementById('mbbCart').classList.add('active');
+  else if (pageId === 'page-wishlist') document.getElementById('mbbWish').classList.add('active');
+}
+
+function openMobileNav() {
+  document.getElementById('mobileNavDrawer').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeMobileNav() {
+  document.getElementById('mobileNavDrawer').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+// Show mobile search bar on small screens
+function checkMobileSearch() {
+  const bar = document.getElementById('mobileSearchBar');
+  if (bar) bar.style.display = window.innerWidth <= 480 ? 'flex' : 'none';
+}
+window.addEventListener('resize', checkMobileSearch);
+checkMobileSearch();
 
 function goHome() {
   showPage('page-home');
